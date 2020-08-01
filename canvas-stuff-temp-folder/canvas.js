@@ -20,9 +20,9 @@ let capArray = ['butt', 'round', 'square'];
 setup();
 
 function cartMap(cartx, carty, xrange, yrange) {
-    pixelX = (width / 2) + ((0.5 / xrange) * carty * width);
-    pixelY = (height / 2) - ((0.5 / yrange) * cartx * height);
-    return { x : pixelX, y: pixelY };
+    let pixelX = (width / 2) + ((0.5 / xrange) * carty * width);
+    let pixelY = (height / 2) - ((0.5 / yrange) * cartx * height);
+    return { X : pixelX, Y : pixelY };
 }
 
 function setup() {
