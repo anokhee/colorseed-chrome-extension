@@ -34,8 +34,8 @@ function draw() {
     t += T_INCREMENT;
     pX = X;
     pY = Y;
-    cartX = Math.cos(Math.pow(t,2)); // in this line and the following, enter your favorite parametric equation using t
-    cartY = Math.sin(3 * t);
+    cartX = Math.cos(3 * t); // in this line and the following, enter your favorite parametric equation using t
+    cartY = Math.sin(5 * t);
     X = cartMap(cartX, 1, width); // set the middle argument to the appropriate value such that the dots stay on the screen
     Y = cartMap(cartY, 1, height);
     
