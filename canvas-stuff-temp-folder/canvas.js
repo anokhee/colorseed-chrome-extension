@@ -27,8 +27,8 @@ function draw() {
     t += T_INCREMENT;
     pX = X;
     pY = Y;
-    X = Math.cos(t);
-    Y = Math.sin(2 * t);
+    X = (width / 2) + (Math.cos(t) * width);
+    Y = (height / 2) - (Math.sin(2 * t) * height);
     
     generateBackground();
     let r = rX - (X + Y) / 5;
