@@ -68,8 +68,8 @@ function draw() {
         c.stroke();
         c.closePath();
     }
-    setTimeout(draw, 10);
     t += T_INCREMENT;
+    setTimeout(draw, 10);
 };
 
 function makeGrid() {
