@@ -24,6 +24,7 @@ function setup() {
 };
 
 function draw() {
+    t += T_INCREMENT;
     pX = X;
     pY = Y;
     X = Math.cos(t);
@@ -68,7 +69,6 @@ function draw() {
         c.stroke();
         c.closePath();
     }
-    t += T_INCREMENT;
     setTimeout(draw, 10);
 };
 
