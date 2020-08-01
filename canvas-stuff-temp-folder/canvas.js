@@ -6,7 +6,7 @@ const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-const T_INCREMENT = 0.01; // this, together with the value in setTimeout, determines the speed of the animation
+const T_INCREMENT = 0.005; // this, together with the value in setTimeout, determines the speed of the animation
 
 let X = 0; // new variables to replace mouseX, mouseY, pMouseX, pMouseY, plus independent variable t
 let Y = 0;
@@ -19,7 +19,7 @@ let capArray = ['butt', 'round', 'square'];
 
 setup();
 
-function cartMap(coord, cartRange, pixelRange) { // quickly converts cartesian coordinates to pixels, with the origin at the center of the canvas
+function cartMap(coord, cartRange, pixelRange) { // converts cartesian coordinates to pixels, with the origin at the center of the canvas
     return (pixelRange / 2) + ((0.5 / cartRange) * coord * pixelRange);
 }
 
@@ -34,8 +34,8 @@ function draw() {
     t += T_INCREMENT;
     pX = X;
     pY = Y;
-    cartX = Math.cos(t); // in this line and the following, enter your favorite parametric equation using t
-    cartY = Math.sin(2 * t);
+    cartX = Math.cos(Math.pow(t,2)); // in this line and the following, enter your favorite parametric equation using t
+    cartY = Math.sin(3 * t);
     X = cartMap(cartX, 1, width); // set the middle argument to the appropriate value such that the dots stay on the screen
     Y = cartMap(cartY, 1, height);
     
