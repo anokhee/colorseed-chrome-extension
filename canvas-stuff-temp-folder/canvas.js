@@ -52,7 +52,7 @@ function draw() {
 
         c.beginPath();
         c.moveTo(width - pX / (i * dist), pY / (i * dist));
-        c.lineTo(width - X / (i * dist), mY / (i * dist));
+        c.lineTo(width - X / (i * dist), pY / (i * dist));
         c.stroke();
         c.closePath();
 
