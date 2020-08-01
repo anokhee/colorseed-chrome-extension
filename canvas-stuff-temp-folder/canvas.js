@@ -30,9 +30,9 @@ function draw() {
     Y = Math.sin(2 * t);
     
     generateBackground();
-    let r = rX - (X + Y) / 5;
-    let g = gX - (X + Y) / 5;
-    let b = bX - (X + Y) / 10;
+    let r = 1; //rX - (X + Y) / 5;
+    let g = 1; //gX - (X + Y) / 5;
+    let b = 1; //bX - (X + Y) / 10;
 
     makeGrid();
 
