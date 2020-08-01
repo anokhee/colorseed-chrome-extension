@@ -19,10 +19,8 @@ let capArray = ['butt', 'round', 'square'];
 
 setup();
 
-function cartMap(cartx, carty, xrange, yrange) {
-    let pixelX = (width / 2) + ((0.5 / xrange) * carty * width);
-    let pixelY = (height / 2) - ((0.5 / yrange) * cartx * height);
-    return { X : pixelX, Y : pixelY };
+function cartMap(coord, cartRange, pixelRange) {
+    return (pixelRange / 2) + ((0.5 / cartRange) * coord * pixelRange);
 }
 
 function setup() {
@@ -38,7 +36,8 @@ function draw() {
     pY = Y;
     cartX = Math.cos(t);
     cartY = Math.sin(2 * t);
-    { X , Y } = cartMap(cartX, cartY, 1, 1);
+    X = cartMap(cartX, 1, width);
+    Y = cartMap(cartY, 1, height);
     
     generateBackground();
     let r = rX - (X + Y) / 5;
