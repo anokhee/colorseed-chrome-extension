@@ -6,7 +6,9 @@ height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-var mouseX, mouseY, pMouseX, pMouseY;
+const T_INCREMENT = 0.01;
+
+let X, Y, pX, pY, t;
 let rX, gX, bX, cR, cG, cB;
 let redPrimary, yellowPrimary, bluePrimary;
 let setPrimary, coeff, iterations, dist;
@@ -22,46 +24,52 @@ function setup() {
 };
 
 function draw() {
+    pX = x;
+    pY = y;
+    x = Math.cos(t);
+    y = Math.sin(2 * t);
+    
     generateBackground();
-    let r = rX - (mouseX + mouseY) / 5;
-    let g = gX - (mouseX + mouseY) / 5;
-    let b = bX - (mouseX + mouseY) / 10;
+    let r = rX - (X + Y) / 5;
+    let g = gX - (X + Y) / 5;
+    let b = bX - (X + Y) / 10;
 
     makeGrid();
 
     for (i = 1; i <= iterations; i++) {
         if (i != 1) {
-            c.lineWidth = ((mouseX * mouseY)) * (i * coeff);
+            c.lineWidth = ((X * Y)) * (i * coeff);
             c.strokeStyle = `rgba(${(cR * (i - 1)/2) * rX}, ${(cG * (i-1)/2) * gX}, ${(cB * (i-1)/2) * bX}`;
         } else {
             c.strokeStyle = `rgba(${r}, ${g}, ${b}, .75)`;
         }
 
         c.beginPath();
-        c.moveTo(pMouseX / (i * dist), pMouseY / (i * dist));
-        c.lineTo(mouseX / (i * dist), mouseY / (i * dist));
+        c.moveTo(pX / (i * dist), pY / (i * dist));
+        c.lineTo(X / (i * dist), Y / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pMouseX / (i * dist), pMouseY / (i * dist));
-        c.lineTo(width - mouseX / (i * dist), mouseY / (i * dist));
+        c.moveTo(width - pX / (i * dist), pY / (i * dist));
+        c.lineTo(width - X / (i * dist), mY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pMouseX / (i * dist), height - pMouseY / (i * dist));
-        c.lineTo(width - mouseX / (i * dist), height - mouseY / (i * dist));
+        c.moveTo(width - pX / (i * dist), height - pY / (i * dist));
+        c.lineTo(width - X / (i * dist), height - Y / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(pMouseX / (i * dist), height - pMouseY / (i * dist));
-        c.lineTo(mouseX / (i * dist), height - mouseY / (i * dist));
+        c.moveTo(pX / (i * dist), height - pY / (i * dist));
+        c.lineTo(X / (i * dist), height - Y / (i * dist));
         c.stroke();
         c.closePath();
     }
     setTimeout(draw, 10);
+    t += T_INCREMENT;
 };
 
 function makeGrid() {
@@ -86,13 +94,6 @@ function generateBackground() {
     c.fillStyle = grd;
     c.fillRect(0, 0, width, height);
 }
-
-document.onmousemove = function (e) {
-    pMouseX = mouseX;
-    pMouseY = mouseY;
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-};
 
 function resetCanvas() {
     c.clearRect(0, 0, canvas.width, canvas.height);
