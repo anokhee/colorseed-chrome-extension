@@ -8,7 +8,10 @@ canvas.height = height;
 
 const T_INCREMENT = 0.01;
 
-let X, Y, pX, pY, t;
+let X = 0;
+let Y = 0;
+let pX, pY;
+let t = 0;
 let rX, gX, bX, cR, cG, cB;
 let redPrimary, yellowPrimary, bluePrimary;
 let setPrimary, coeff, iterations, dist;
