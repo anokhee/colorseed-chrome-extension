@@ -35,7 +35,7 @@ function draw() {
     pX = X;
     pY = Y;
     cartX = Math.cos(3 * t); // in this line and the following, enter your favorite parametric equation using t
-    cartY = Math.sin(5 * t);
+    cartY = Math.sin(5 * t); // when in doubt, it's always fun to make Lissajous figures by changing the internal coefficients!
     X = cartMap(cartX, 1, width); // set the middle argument to the appropriate value such that the dots stay on the screen
     Y = cartMap(cartY, 1, height);
     
