@@ -19,6 +19,12 @@ let capArray = ['butt', 'round', 'square'];
 
 setup();
 
+function cartMap(cartx, carty, xrange, yrange) {
+    pixelX = (width / 2) + ((0.5 / xrange) * carty * width);
+    pixelY = (height / 2) - ((0.5 / yrange) * cartx * height);
+    return { x : pixelX, y: pixelY };
+}
+
 function setup() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     grd = c.createLinearGradient(10, 10, width, height);
@@ -30,9 +36,9 @@ function draw() {
     t += T_INCREMENT;
     pX = X;
     pY = Y;
-    X = (width / 2) + (0.5 * Math.cos(t) * width);
-    Y = (height / 2) - (0.5 * Math.sin(2 * t) * height);
-    console.log(X);
+    cartX = Math.cos(t);
+    cartY = Math.sin(2 * t);
+    { X , Y } = cartMap(cartX, cartY, 1, 1);
     
     generateBackground();
     let r = rX - (X + Y) / 5;
