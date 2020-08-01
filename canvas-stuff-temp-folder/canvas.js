@@ -1,8 +1,8 @@
-var canvas = document.getElementById('responsiveCanvas');
-var c = canvas.getContext("2d");
-var grd;
-width = window.innerWidth;
-height = window.innerHeight;
+const canvas = document.getElementById('responsiveCanvas');
+const c = canvas.getContext("2d");
+let grd;
+const width = window.innerWidth;
+const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
@@ -29,6 +29,7 @@ function draw() {
     pY = Y;
     X = (width / 2) + (Math.cos(t) * width);
     Y = (height / 2) - (Math.sin(2 * t) * height);
+    console.log(X);
     
     generateBackground();
     let r = rX - (X + Y) / 5;
