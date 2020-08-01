@@ -24,10 +24,10 @@ function setup() {
 };
 
 function draw() {
-    pX = x;
-    pY = y;
-    x = Math.cos(t);
-    y = Math.sin(2 * t);
+    pX = X;
+    pY = Y;
+    X = Math.cos(t);
+    Y = Math.sin(2 * t);
     
     generateBackground();
     let r = rX - (X + Y) / 5;
