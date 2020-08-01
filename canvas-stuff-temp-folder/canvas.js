@@ -30,8 +30,8 @@ function draw() {
     t += T_INCREMENT;
     pX = X;
     pY = Y;
-    X = (width / 2) + (Math.cos(t) * width);
-    Y = (height / 2) - (Math.sin(2 * t) * height);
+    X = (width / 2) + (0.5 * Math.cos(t) * width);
+    Y = (height / 2) - (0.5 * Math.sin(2 * t) * height);
     console.log(X);
     
     generateBackground();
