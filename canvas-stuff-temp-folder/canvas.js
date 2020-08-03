@@ -1,27 +1,18 @@
-const canvas = document.getElementById('responsiveCanvas');
-const c = canvas.getContext("2d");
-let grd;
-const width = window.innerWidth;
-const height = window.innerHeight;
+var canvas = document.getElementById('responsiveCanvas');
+var c = canvas.getContext("2d");
+var grd;
+width = window.innerWidth;
+height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-const T_INCREMENT = 0.005; // this, together with the value in setTimeout, determines the speed of the animation
-
-let X = 0; // new variables to replace mouseX, mouseY, pMouseX, pMouseY, plus independent variable t
-let Y = 0;
-let pX, pY;
-let t = 0;
+var mouseX, mouseY, pMouseX, pMouseY;
 let rX, gX, bX, cR, cG, cB;
 let redPrimary, yellowPrimary, bluePrimary;
 let setPrimary, coeff, iterations, dist;
 let capArray = ['butt', 'round', 'square'];
 
 setup();
-
-function cartMap(coord, cartRange, pixelRange) { // converts cartesian coordinates to pixels, with the origin at the center of the canvas
-    return (pixelRange / 2) + ((0.5 / cartRange) * coord * pixelRange);
-}
 
 function setup() {
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -31,50 +22,42 @@ function setup() {
 };
 
 function draw() {
-    t += T_INCREMENT;
-    pX = X;
-    pY = Y;
-    cartX = Math.cos(3 * t); // in this line and the following, enter your favorite parametric equation using t
-    cartY = Math.sin(5 * t); // when in doubt, it's always fun to make Lissajous figures by changing the internal coefficients!
-    X = cartMap(cartX, 1, width); // set the middle argument to the appropriate value such that the dots stay on the screen
-    Y = cartMap(cartY, 1, height);
-    
     generateBackground();
-    let r = rX - (X + Y) / 5;
-    let g = gX - (X + Y) / 5;
-    let b = bX - (X + Y) / 10;
+    let r = rX - (mouseX + mouseY) / 5;
+    let g = gX - (mouseX + mouseY) / 5;
+    let b = bX - (mouseX + mouseY) / 10;
 
     makeGrid();
 
     for (i = 1; i <= iterations; i++) {
         if (i != 1) {
-            c.lineWidth = ((X * Y)) * (i * coeff);
+            c.lineWidth = ((mouseX * mouseY)) * (i * coeff);
             c.strokeStyle = `rgba(${(cR * (i - 1)/2) * rX}, ${(cG * (i-1)/2) * gX}, ${(cB * (i-1)/2) * bX}`;
         } else {
             c.strokeStyle = `rgba(${r}, ${g}, ${b}, .75)`;
         }
 
         c.beginPath();
-        c.moveTo(pX / (i * dist), pY / (i * dist));
-        c.lineTo(X / (i * dist), Y / (i * dist));
+        c.moveTo(pMouseX / (i * dist), pMouseY / (i * dist));
+        c.lineTo(mouseX / (i * dist), mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pX / (i * dist), pY / (i * dist));
-        c.lineTo(width - X / (i * dist), pY / (i * dist));
+        c.moveTo(width - pMouseX / (i * dist), pMouseY / (i * dist));
+        c.lineTo(width - mouseX / (i * dist), mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pX / (i * dist), height - pY / (i * dist));
-        c.lineTo(width - X / (i * dist), height - Y / (i * dist));
+        c.moveTo(width - pMouseX / (i * dist), height - pMouseY / (i * dist));
+        c.lineTo(width - mouseX / (i * dist), height - mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(pX / (i * dist), height - pY / (i * dist));
-        c.lineTo(X / (i * dist), height - Y / (i * dist));
+        c.moveTo(pMouseX / (i * dist), height - pMouseY / (i * dist));
+        c.lineTo(mouseX / (i * dist), height - mouseY / (i * dist));
         c.stroke();
         c.closePath();
     }
@@ -103,6 +86,13 @@ function generateBackground() {
     c.fillStyle = grd;
     c.fillRect(0, 0, width, height);
 }
+
+document.onmousemove = function (e) {
+    pMouseX = mouseX;
+    pMouseY = mouseY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+};
 
 function resetCanvas() {
     c.clearRect(0, 0, canvas.width, canvas.height);
