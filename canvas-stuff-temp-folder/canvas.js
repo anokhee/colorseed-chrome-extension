@@ -27,7 +27,7 @@ function draw() {
     let g = gX - (mouseX + mouseY) / 5;
     let b = bX - (mouseX + mouseY) / 10;
 
-    makeGrid();
+    // makeGrid();
 
     for (i = 1; i <= iterations; i++) {
         if (i != 1) {
