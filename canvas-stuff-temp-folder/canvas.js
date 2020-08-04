@@ -11,6 +11,8 @@ let rX, gX, bX, cR, cG, cB;
 let redPrimary, yellowPrimary, bluePrimary;
 let setPrimary, coeff, iterations, dist;
 let capArray = ['butt', 'round', 'square'];
+let gridSize;
+let lightMode = false;
 
 setup();
 
@@ -27,7 +29,7 @@ function draw() {
     let g = gX - (mouseX + mouseY) / 5;
     let b = bX - (mouseX + mouseY) / 10;
 
-    // makeGrid();
+    makeGrid();
 
     for (i = 1; i <= iterations; i++) {
         if (i != 1) {
@@ -65,23 +67,28 @@ function draw() {
 };
 
 function makeGrid() {
-    for (let i = 0; i < width / 20; i++) {
-        c.strokeStyle = 'rgba(155, 155, 155, .05)';
+    for (let i = 0; i < width / gridSize; i++) {
+        c.strokeStyle = 'rgba(155, 155, 155, .1)';
         c.lineWidth = '0.25';
         c.beginPath();
-        c.moveTo(i * 20, 0);
-        c.lineTo(i * 20, height);
+        c.moveTo(i * gridSize, 0);
+        c.lineTo(i * gridSize, height);
         c.stroke();
         c.beginPath();
-        c.moveTo(0, i * 20);
-        c.lineTo(width, i * 20);
+        c.moveTo(0, i * gridSize);
+        c.lineTo(width, i * gridSize);
         c.stroke();
     }
 }
 
 function generateBackground() {
-    grd.addColorStop(0, `rgba(${rX + 25}, ${gX + 25}, ${bX + 25}, 0.075)`);
-    grd.addColorStop(1, `rgba(${(255 - cR)}, ${(255 - cG)}, ${(255 - cB)}, 0.075)`);
+    if (lightMode) {
+        grd.addColorStop(0, `rgba(${rX + 25}, ${gX + 25}, ${bX + 25}, 0.065)`);
+        grd.addColorStop(1, `rgba(${(255 - cR)}, ${(255 - cG)}, ${(255 - cB)}, 0.065)`);
+    } else {
+        grd.addColorStop(0, `rgba(${cR * 2}, ${cG * 2}, ${cB * 2}, 0.035)`);
+        grd.addColorStop(1, `rgba(${(cR * 2)}, ${(cG * 2)}, ${(cB * 2)}, 0.035)`);
+    } 
 
     c.fillStyle = grd;
     c.fillRect(0, 0, width, height);
@@ -102,7 +109,12 @@ function resetCanvas() {
     dist = 0.5;
     coeff = Math.random() * (.0001 - .00005) + .00005;
     iterations = Math.floor(Math.random() * (8 - 2) + 2);
-    setPrimary = Math.random();
+    setPrimary = 0;
+    gridSize = Math.floor(Math.random() * (100 - 20) + 20);
+
+    r = 100;
+    angle = 0;
+    step = 2 * (Math.PI) / 4;
 
     if (setPrimary >= 0 && setPrimary <= .33) {
         redPrimary = true;
@@ -129,6 +141,4 @@ function resetCanvas() {
     cR = Math.random() * 2;
     cG = Math.random() * 2;
     cB = Math.random() * 2;
-
-    console.log(coeff, iterations);
 }
