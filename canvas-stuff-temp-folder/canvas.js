@@ -12,7 +12,7 @@ let redPrimary, yellowPrimary, bluePrimary;
 let setPrimary, coeff, iterations, dist;
 let capArray = ['butt', 'round', 'square'];
 let gridSize;
-let lightMode = false;
+let lightMode = true;
 
 setup();
 
@@ -39,26 +39,32 @@ function draw() {
             c.strokeStyle = `rgba(${r}, ${g}, ${b}, .75)`;
         }
 
+        // let xOff = Math.random() * (150 - -150) -150;
+        // let yOff = Math.random() * (75 - -75) -75;
+
+        let xOff = 0;
+        let yOff = 0;
+
         c.beginPath();
-        c.moveTo(pMouseX / (i * dist), pMouseY / (i * dist));
-        c.lineTo(mouseX / (i * dist), mouseY / (i * dist));
+        c.moveTo(pMouseX / (i * dist) + xOff, pMouseY / (i * dist) - yOff);
+        c.lineTo(mouseX / (i * dist) + xOff, mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pMouseX / (i * dist), pMouseY / (i * dist));
+        c.moveTo(width - pMouseX / (i * dist), pMouseY / (i * dist) - yOff);
         c.lineTo(width - mouseX / (i * dist), mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(width - pMouseX / (i * dist), height - pMouseY / (i * dist));
+        c.moveTo(width - pMouseX / (i * dist), height - pMouseY / (i * dist) + yOff);
         c.lineTo(width - mouseX / (i * dist), height - mouseY / (i * dist));
         c.stroke();
         c.closePath();
 
         c.beginPath();
-        c.moveTo(pMouseX / (i * dist), height - pMouseY / (i * dist));
+        c.moveTo(pMouseX / (i * dist), height - pMouseY / (i * dist) + yOff);
         c.lineTo(mouseX / (i * dist), height - mouseY / (i * dist));
         c.stroke();
         c.closePath();
@@ -83,12 +89,12 @@ function makeGrid() {
 
 function generateBackground() {
     if (lightMode) {
-        grd.addColorStop(0, `rgba(${rX + 25}, ${gX + 25}, ${bX + 25}, 0.065)`);
+        grd.addColorStop(0, `rgba(${rX + 50}, ${gX + 50}, ${bX + 50}, 0.065)`);
         grd.addColorStop(1, `rgba(${(255 - cR)}, ${(255 - cG)}, ${(255 - cB)}, 0.065)`);
     } else {
         grd.addColorStop(0, `rgba(${cR * 2}, ${cG * 2}, ${cB * 2}, 0.035)`);
         grd.addColorStop(1, `rgba(${(cR * 2)}, ${(cG * 2)}, ${(cB * 2)}, 0.035)`);
-    } 
+    }
 
     c.fillStyle = grd;
     c.fillRect(0, 0, width, height);
@@ -101,20 +107,20 @@ document.onmousemove = function (e) {
     mouseY = e.clientY;
 };
 
+function morph(axis, min, max, deltaMin, deltaMax){
+
+}
+
 function resetCanvas() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     c.lineCap = `${capArray[Math.floor(Math.random() * (capArray.length))]}`;
     c.lineJoin = `${capArray[Math.floor(Math.random() * (capArray.length))]}`;
 
-    dist = 0.5;
+    dist = Math.random() * (0.65 - 0.35) + 0.35;
     coeff = Math.random() * (.0001 - .00005) + .00005;
     iterations = Math.floor(Math.random() * (8 - 2) + 2);
-    setPrimary = 0;
+    setPrimary = Math.random();
     gridSize = Math.floor(Math.random() * (100 - 20) + 20);
-
-    r = 100;
-    angle = 0;
-    step = 2 * (Math.PI) / 4;
 
     if (setPrimary >= 0 && setPrimary <= .33) {
         redPrimary = true;
